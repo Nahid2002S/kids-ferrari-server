@@ -30,7 +30,7 @@ async function run() {
     const toyCollection = client.db("toyDB").collection('toy');
 
     app.get('/toy', async(req, res)=>{
-      const cursor = toyCollection.find();
+      const cursor = toyCollection.find().limit(20);
       const result = await cursor.toArray();
       res.send(result);
     })
@@ -70,7 +70,7 @@ async function run() {
       const myToys = await toyCollection
         .find({
           sellerEmail: req.params.email,
-        })
+        }).sort({price : 1})
         .toArray();
       res.send(myToys);
     });
