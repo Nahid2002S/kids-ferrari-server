@@ -70,7 +70,25 @@ async function run() {
       const myToys = await toyCollection
         .find({
           sellerEmail: req.params.email,
+        })
+        .toArray();
+      res.send(myToys);
+    });
+
+    app.get("/ascending/:email", async (req, res) => {
+      const myToys = await toyCollection
+        .find({
+          sellerEmail: req.params.email,
         }).sort({price : 1})
+        .toArray();
+      res.send(myToys);
+    });
+
+    app.get("/descending/:email", async (req, res) => {
+      const myToys = await toyCollection
+        .find({
+          sellerEmail: req.params.email,
+        }).sort({price : -1})
         .toArray();
       res.send(myToys);
     });
